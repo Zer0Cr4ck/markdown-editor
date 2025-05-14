@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Markdown Previewer</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <header>
+    <button id="previewBtn">Generar Vista Previa</button>
+  </header>
+
+  <main>
+    <section class="editor">
+      <textarea id="markdownInput" placeholder="Escribe tu Markdown aquí..."></textarea>
+    </section>
+    <section class="preview" id="markdownPreview">
+      <!-- Vista previa del Markdown -->
+    </section>
+  </main>
+
+  <footer>
+    markdown preview 1.0
+  </footer>
+
+  <script>
+    document.getElementById('previewBtn').addEventListener('click', function () {
+      const input = document.getElementById('markdownInput').value;
+
+      // Conversión básica de Markdown a HTML usando expresiones regulares
+      let html = input
+      
+        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+        .replace(/^\s*-\s+(.*$)/gim, '<ul><li>$1</li></ul>')
+        .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+        .replace(/\*(.*)\*/gim, '<em>$1</em>')
+        .replace(/\n$/gim, '<br />');
+
+      document.getElementById('markdownPreview').innerHTML = html;
+    });
+  </script>
+</body>
+</html>
