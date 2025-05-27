@@ -59,3 +59,29 @@ footer {
   text-align: center;
   padding: 0.5rem;
 }
+
+
+.preview h1 {
+  color: #2c3e50;
+  font-size: 2rem;
+}
+.preview h2 {
+  color: #34495e;
+  font-size: 1.5rem;
+}
+.preview h3 {
+  color: #7f8c8d;
+  font-size: 1.2rem;
+}
+.preview ul {
+  padding-left: 1.5rem;
+}
+.preview li {
+  margin-bottom: 0.5rem;
+}
+.preview strong {
+  font-weight: bold;
+}
+.preview em {
+  font-style: italic;
+}

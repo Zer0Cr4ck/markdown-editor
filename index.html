@@ -7,40 +7,29 @@
   <link rel="stylesheet" href="./css/styles.css" />
 </head>
 <body>
-  <header>
-    <button id="previewBtn">Generar Vista Previa</button>
+   <header>
+    <h1>Markdown Previewer</h1>
   </header>
 
   <main>
     <section class="editor">
-      <textarea id="markdownInput" placeholder="Escribe tu Markdown aquí..."></textarea>
+      <label for="markdownInput" class="visually-hidden">Editor Markdown</label>
+      <textarea 
+        id="markdownInput" 
+        placeholder="Escribe tu Markdown aquí..." 
+        aria-label="Editor de Markdown">
+      </textarea>
     </section>
-    <section class="preview" id="markdownPreview">
-      <!-- Vista previa del Markdown -->
+
+    <section class="preview" id="markdownPreview" aria-live="polite">
+      <!-- Vista previa del Markdown se renderiza aquí -->
     </section>
   </main>
 
   <footer>
-    markdown preview 1.0
+    Markdown Preview 1.0
   </footer>
 
-  <script>
-    document.getElementById('previewBtn').addEventListener('click', function () {
-      const input = document.getElementById('markdownInput').value;
-
-      // Conversión básica de Markdown a HTML usando expresiones regulares
-      let html = input
-      
-        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-        .replace(/^\s*-\s+(.*$)/gim, '<ul><li>$1</li></ul>')
-        .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-        .replace(/\*(.*)\*/gim, '<em>$1</em>')
-        .replace(/\n$/gim, '<br />');
-
-      document.getElementById('markdownPreview').innerHTML = html;
-    });
-  </script>
+  <script src="./js/app.js"></script>
 </body>
 </html>
