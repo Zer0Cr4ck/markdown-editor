@@ -1,50 +1,37 @@
-
 function headers(text) {
-  return text
-   .replace(/^# (.*)$/gim, '<h1>$1</h1>')
-   .replace(/^## (.*)$/gim, '<h2>$1</h2>')
-   .replace(/^### (.*)$/gim, '<h3>$1</h3>')
-   .replace(/^#### (.*)$/gim, '<h4>$1</h4>')
-   .replace(/^##### (.*)$/gim, '<h5>$1</h5>')
-   .replace(/^###### (.*)$/gim, '<h6>$1</h6>');
-    //hasta el h6
-    
-   
+  
+  text = text.replace(/^# (.*)$/gm, '<h1>$1</h1>');
+  text = text.replace(/^## (.*)$/gm, '<h2>$1</h2>');
+  text = text.replace(/^### (.*)$/gm, '<h3>$1</h3>');
+  text = text.replace(/^#### (.*)$/gm, '<h4>$1</h4>');
+  text = text.replace(/^##### (.*)$/gm, '<h5>$1</h5>');
+  text = text.replace(/^###### (.*)$/gm, '<h6>$1</h6>');
+  return text;
 }
 
 function convertBoldItalic(text) {
-  return text
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')  
-    .replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+  text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong><br>');
+  text = text.replace(/\*(.*?)\*/g, '<em>$1</em><br>');
+  return text;
 }
 
+function transformMarkdown(text) {
 
-
-// Función principal SIN usar '...callbacks'
-function transformMarkdown(text, callbacks) {
-  try {
-    let result = text;
-    for (const cb of callbacks) {
-      result = cb(result);
-    }
-    return result;
-  } catch (err) {
-    throw new Error('Error al procesar el Markdown.');
-  }
+  text = headers(text);
+  text = convertBoldItalic(text);
+  text = generarVinculo(text);
+  return text;
 }
 
-// Evento en tiempo real
+function generarVinculo(text) {
+  
+  return text.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+}
+
 document.getElementById('markdownInput').addEventListener('input', function () {
   const markdown = this.value.trim();
   const preview = document.getElementById('markdownPreview');
-
-  try {
-    const html = transformMarkdown(markdown, [
-      headers,
-      convertBoldItalic
-    ]);
-    preview.innerHTML = html;
-  } catch (err) {
-    preview.innerHTML = `<p style="color: red;">${err.message}</p>`;
-  }
+  const html = transformMarkdown(markdown);
+  preview.innerHTML = html;
 });
